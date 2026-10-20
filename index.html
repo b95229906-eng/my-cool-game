@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Cool Game</title>
+<style>
+  body{margin:0;background:#1b1b2f;color:#fff;font-family:sans-serif;text-align:center;overflow:hidden}
+  #bar{padding:12px;font-size:20px}
+  #area{position:relative;width:100vw;height:75vh}
+  #target{position:absolute;width:70px;height:70px;border-radius:50%;background:#ff4d6d;border:4px solid #fff}
+  button{font-size:18px;padding:10px 20px;border:0;border-radius:8px;background:#ffd166}
+</style>
+</head>
+<body>
+<div id="bar">Score: <span id="score">0</span> | Time: <span id="time">20</span></div>
+<div id="area"><div id="target"></div></div>
+<button onclick="start()">Start / Restart</button>
+<script>
+let score=0,time=20,timer=null;
+const t=document.getElementById("target"),a=document.getElementById("area");
+function move(){
+  t.style.left=Math.random()*(a.clientWidth-80)+"px";
+  t.style.top=Math.random()*(a.clientHeight-80)+"px";
+}
+t.onclick=()=>{ if(time>0){score++;document.getElementById("score").textContent=score;move();} };
+function start(){
+  score=0;time=20;
+  document.getElementById("score").textContent=0;
+  document.getElementById("time").textContent=20;
+  move();
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    time--;
+    document.getElementById("time").textContent=time;
+    if(time<=0){clearInterval(timer);alert("Game over! Score: "+score);}
+  },1000);
+}
+move();
+</script>
+</body>
+</html>
